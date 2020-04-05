@@ -1,0 +1,101 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+</h:head>
+
+<h:body>
+	<p:messages id="messages" closable="true">
+		<p:autoUpdate />
+	</p:messages>
+	<p:growl id="messagem" showDetail="true"></p:growl>
+	<h:form>
+		<p:fieldset legend="Lista de Pessoas">
+
+			<p:panel id="PainelPrincipal" header="Pesquisar pelo CPF"
+				style="margin-bottom:20px">
+				<h:panelGrid columns="2" cellpadding="10" id="PesquisarDados">
+					<h:outputLabel value="CPF"></h:outputLabel>
+					<p:inputMask mask="99999999999"
+						value="#{PessoaBean.cpfSelecionado}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" width="100%" style="text-align:left">
+					<p:commandButton value="Pesquisar"
+						actionListener="#{PessoaBean.pesquisarPessoa}" update="@form" />
+					<p:commandButton value="Limpar"
+						actionListener="#{PessoaBean.limparPesquisa}" update="@form">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<p:column>
+				<p:commandButton value="Adicionar Pessoa" update="@form"
+					actionListener="#{PessoaBean.inserir}" />
+				<p:commandButton value="Listar todos"
+					actionListener="#{PessoaBean.pesquisarTodos}" update="@form"
+					style="margin-left:20px" />
+			</p:column>
+			<p></p>
+			<h:outputLabel value="#{PessoaBean.mensagem}"
+				style="color: red; font-weight: bold " />
+			<p:dataTable value="#{PessoaBean.listaPessoas}" var="pessoa">
+				<p:column headerText="Nome" sortBy="#{pessoa.nome}">
+					<h:outputText value="#{pessoa.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="CPF" sortBy="#{pessoa.cpf}">
+					<h:outputText value="#{pessoa.cpf}"></h:outputText>
+				</p:column>
+				<p:column headerText="Idade" sortBy="#{pessoa.idade}">
+					<h:outputText value="#{pessoa.idade}"></h:outputText>
+				</p:column>
+				<p:column headerText="Sexo" sortBy="#{pessoa.sexo}">
+					<h:outputText value="#{pessoa.sexo}"></h:outputText>
+				</p:column>
+				<p:column headerText="Numero de Livros Lidos"
+					style="text-align:center" sortBy="#{pessoa.livros.size()}">
+					<h:outputText value="#{pessoa.livros.size()}"></h:outputText>
+				</p:column>
+				<p:column headerText="Ver livros" width="8%"
+					style="text-align:center">
+					<p:commandButton icon="pi pi-check-circle"
+						action="#{PessoaBean.listaLivrosLidos}">
+						<f:setPropertyActionListener target="#{PessoaBean.cpfSelecionado}"
+							value="#{pessoa.cpf}" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Editar" width="5%" style="text-align:center">
+					<p:commandButton icon="pi pi-pencil" action="#{PessoaBean.editar}">
+						<f:setPropertyActionListener target="#{PessoaBean.cpfSelecionado}"
+							value="#{pessoa.cpf}" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Remover" width="6%" style="text-align:center">
+					<p:commandButton icon="pi pi-times" action="#{PessoaBean.remover}"
+						update="@form">
+						<f:setPropertyActionListener target="#{PessoaBean.cpfSelecionado}"
+							value="#{pessoa.cpf}" />
+						<p:confirm header="Remoção"
+							message="Tem certeza que dejesa excluir #{pessoa.nome} ?"></p:confirm>
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<h:panelGrid columns="2" width="100%" style="text-align:center">
+							<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes"
+								icon="ui-icon-check" style="color:green" />
+							<p:commandButton value="Não" styleClass="ui-confirmdialog-no"
+								icon="ui-icon-close" style="color:red" />
+						</h:panelGrid>
+
+					</p:confirmDialog>
+
+
+				</p:column>
+			</p:dataTable>
+		</p:fieldset>
+	</h:form>
+</h:body>
+</html>

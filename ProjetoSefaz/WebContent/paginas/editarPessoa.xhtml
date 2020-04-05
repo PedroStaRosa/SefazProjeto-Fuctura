@@ -1,0 +1,138 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+</h:head>
+
+<h:body>
+	<p:messages id="messages" closable="true">
+		<p:autoUpdate />
+	</p:messages>
+	<p:growl id="messagem" showDetail="true"></p:growl>
+
+	<h:form id="form">
+		<p:panel id="panelPessoa" header="Editar Pessoa"
+			style="margin-bottom:20px">
+			<h:panelGrid columns="2">
+
+				<h:outputLabel value="Nome" />
+				<p:inputText id="nome" required="true"
+					value="#{PessoaBean.pessoa.nome}" requiredMessage="Insira um nome."
+					validatorMessage="Nome não pode ter mais de 100 letras.">
+					<f:validateLength maximum="100" />
+					<p:clientValidator event="keyup" />
+				</p:inputText>
+
+				<h:outputLabel value="CPF" />
+				<p:inputText value="#{PessoaBean.pessoa.cpf}" disabled="true" />
+
+				<h:outputLabel value="Idade" />
+				<p:inputText id="idade" maxlength="3"
+					value="#{PessoaBean.pessoa.idade}" required="true"
+					requiredMessage="Insira uma idade"
+					validatorMessage="Idade não pode ser maior que 100 anos">
+					<f:validateLongRange maximum="100" />
+					<p:clientValidator event="keyup" />
+				</p:inputText>
+
+				<h:outputLabel value="Senha: *" />
+				<p:password id="pwd1" value="#{PessoaBean.pessoa.senha}"
+					match="pwd2" label="Password 1" redisplay="true" required="true" />
+				<h:outputLabel value="Confirme senha: *" />
+				<p:password id="pwd2" value="#{PessoaBean.pessoa.senha}"
+					label="Password 2" redisplay="true" />
+
+				<h:outputLabel value="Sexo" />
+				<p:selectOneRadio id="sexo" value="#{PessoaBean.pessoa.sexo}"
+					unselectable="true" required="true">
+					<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+					<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+					<f:selectItem itemLabel="Transgênero" itemValue="Transgênero" />
+				</p:selectOneRadio>
+			</h:panelGrid>
+		</p:panel>
+		<h:outputLabel value="#{PessoaBean.mensagem}" style="color: red" />
+		<p></p>
+		<p:panel id="panelLivros" header="Adicionar livros lidos"
+			style="margin-bottom:20px">
+			<p:column colspan="4">
+				<p:panel header="Livros" style="margin-bottom:20px">
+					<p:panelGrid columns="1" style="margin-bottom:20px"
+						cellpadding="10">
+						<h:panelGrid columns="2" style="margin-bottom:20px">
+							<h:outputLabel value="Ano de lançamento: " />
+							<p:inputMask mask="9999" size="4" style="margin-"
+								value="#{PessoaBean.livro.ano_lancamento}" />
+							<h:outputLabel value="Nome do livro: " />
+							<p:inputText value="#{PessoaBean.livro.nome}" />
+							<h:outputLabel value="Autor: " />
+							<p:inputText value="#{PessoaBean.livro.autor}" />
+							<p:commandButton value="Inserir livros" update="listaLivros"
+								actionListener="#{PessoaBean.adicionarLivros}" />
+						</h:panelGrid>
+					</p:panelGrid>
+					<p:outputLabel value="Seus livros já lidos " style="color: blue" />
+					<p:dataTable id="listaLivros" var="livro"
+						value="#{PessoaBean.pessoa.livros}">
+						<p:column headerText="Ano de Lançamento">
+							<h:outputText value="#{livro.ano_lancamento}" style="width: 20%" />
+						</p:column>
+						<p:column headerText="Nome" style="width: 40%">
+							<h:outputText value="#{livro.nome}" />
+						</p:column>
+						<p:column headerText="Autor" style="width: 40%">
+							<h:outputText value="#{livro.autor}" />
+						</p:column>
+
+						<p:column headerText="Remover" width="6%"
+							style="text-align:center">
+							<p:commandButton icon="pi pi-times" update="@form">
+								<f:setPropertyActionListener
+									target="#{PessoaBean.idLivroSelecionado}" value="#{livro.id}" />
+								<p:confirm id="excluirlivro" header="Editar"
+									message="AINDA EM IMPLEMENTAÇÃO, JÁ EXCLUI DO BANCO, ADICIONAR action {PessoaBean.removerLivro} PARA TESTE, FALTA DAR UM REFRESH NA LISTA "></p:confirm>
+							</p:commandButton>
+						</p:column>
+						<p:confirmDialog for="excluirlivro" global="true">
+							<h:panelGrid columns="2" width="100%" style="text-align:center">
+								<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes"
+									icon="ui-icon-check" style="color:green" />
+								<p:commandButton value="Não" styleClass="ui-confirmdialog-no"
+									icon="ui-icon-close" style="color:red" />
+							</h:panelGrid>
+						</p:confirmDialog>
+
+					</p:dataTable>
+				</p:panel>
+				<p:outputLabel
+					value="Você poderá adicionar mais livros posteriomente, é só editar! "
+					style="color: red" />
+			</p:column>
+		</p:panel>
+		<p:commandButton value="OK" update="@form"
+			actionListener="#{PessoaBean.salvar}">
+			<p:confirm header="Editar" message="Os dados esta corretos ?"></p:confirm>
+
+		</p:commandButton>
+
+		<p:confirmDialog global="true">
+			<h:panelGrid columns="2" width="100%" style="text-align:center">
+				<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check" style="color:green" />
+				<p:commandButton value="Não" styleClass="ui-confirmdialog-no"
+					icon="ui-icon-close" style="color:red" />
+			</h:panelGrid>
+
+		</p:confirmDialog>
+
+
+		<p:commandButton value="Voltar" update="@form"
+			actionListener="#{PessoaBean.abrirPesquisarPessoa}"
+			style="margin-left:20px" immediate="true" />
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>PROJETO SEFAZ</title>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:outputLabel value="Usuario : 11111111111 " />
+		<p></p>
+		<p:outputLabel value="Senha : admin " />
+
+		<p:dialog header="PROJETO SEFAZ" modal="true" height="320"
+			visible="true">
+			<p:panel id="basic" header="Login" style="margin-bottom:20px">
+				<h:panelGrid columns="2">
+
+					<h:graphicImage value="/imgs/java.png" height="80" />
+					<p:outputLabel value="Preparatório Java SEFAZ " />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" cellpadding="10">
+
+					<h:outputLabel value="Usuario :" />
+					<p:inputMask mask="99999999999" value="#{LoginBean.userTXT}" />
+
+					<h:outputLabel value="Senha :" />
+					<p:password value="#{LoginBean.passTXT}" />
+
+				</h:panelGrid>
+				<h:panelGrid width="100%" style="text-align:center">
+
+					<p:commandButton value="Entrar" update="@form"
+						actionListener="#{LoginBean.entrar}" />
+
+					<h:outputLabel value="#{LoginBean.mensagem}"
+						style="color: red; font-weight: bold " />
+
+				</h:panelGrid>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel header="Dados da Pessoa">
+			<p:panelGrid columns="2" style="width: 100%">
+
+				<p:column style="width:40px">
+					<h:outputLabel value="Nome: " />
+				</p:column>
+
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{PessoaBean.pessoa.nome}" />
+				</p:column>
+
+				<p:column style="width:40px">
+					<h:outputLabel value="CPF: " />
+				</p:column>
+
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{PessoaBean.pessoa.cpf}" />
+				</p:column>
+
+				<p:column style="width:40px">
+					<h:outputLabel value="Idade: " />
+				</p:column>
+
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{PessoaBean.pessoa.idade}" />
+				</p:column>
+
+				<p:column style="width:40px">
+					<h:outputLabel value="Sexo: " />
+				</p:column>
+
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{PessoaBean.pessoa.sexo}" />
+				</p:column>
+
+			</p:panelGrid>
+		</p:panel>
+
+		<p:column colspan="4">
+			<p:panel header="Livros Lidos">
+
+				<h:outputText
+					value="Total #{PessoaBean.pessoa.livros.size()} livros"
+					style="color: red; font-weight: bold " />
+
+				<p:dataTable id="livros" var="livro"
+					value="#{PessoaBean.pessoa.livros}">
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{livro.nome}" />
+					</p:column>
+
+					<p:column headerText="Autor" style="width: 70%">
+						<h:outputText value="#{livro.autor}" />
+					</p:column>
+
+					<p:column headerText="Ano de Lançamento">
+						<h:outputText value="#{livro.ano_lancamento}" />
+
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</p:column>
+
+		<p:column>
+
+			<p></p>
+
+			<p:outputLabel value="Deseja adicionar mais livros?"
+				style="color: blue" />
+			<p:commandButton value="Sim" update="@form"
+				actionListener="#{PessoaBean.abrirEditarPessoa}"
+				style="margin-left:20px" />
+		</p:column>
+
+
+		<p:column>
+
+			<p></p>
+			<p:commandButton value="Voltar" update="@form"
+				actionListener="#{PessoaBean.abrirPesquisarPessoa}" />
+
+		</p:column>
+
+	</h:form>
+</h:body>
+</html>

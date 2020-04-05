@@ -1,0 +1,38 @@
+Fuctura Exercício Sefaz
+
+Objetivo desse exercício é testar a capacidade dos alunos em criar um projeto java com algumas funcionalidades específicas, detalhadas abaixo.
+
+Funcionalidades:
+
+1.	Tela Login
+2.	Pesquisar Pessoas (Iniciar com a lista carregada)
+3.	Inserir Pessoa
+4.	Alterar Pessoa
+5.	Remover Pessoa
+
+Estruturas:
+
+Pessoa
+- NOME [String]
+- CPF [String]
+- IDADE [NUMERO]
+- SEXO [String]
+- SENHA [String]
+- Livros[Lista]
+
+Livro
+- NOME [String]
+- AUTOR [String]
+- ANO_LANCAMENTO [NUMERO]
+
+Requisitos obrigatórios
+• Utilizar a Plataforma – Java EE
+• Estruturar a aplicação em camadas
+• Uso de banco de dados relacional/SQL (preferencialmente HSQLDB, H2 ou Oracle XE)
+• Processo de build utilizando Maven Persistência utilizando JDBC ou JPA Utilizar
+no mínimo Java 8.
+• Utilizar na interface JSF/Primefaces ou JSP com jQuery e Ajax
+
+Então, ele vai servir como avaliação de suas capacidades como desenvolvedores.
+Dessa forma, vocês tem até as 23:59 do DOMINGO para me enviarem, esse exercício feito.
+A partir da segundo irei iniciar a correção e repassar a minha avaliação ao Diognes
